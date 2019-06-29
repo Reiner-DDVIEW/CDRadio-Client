@@ -19,7 +19,7 @@ function onSelectionChange({ value }, dispatch) {
 }
 
 const initialState = {
-  allowed: false,
+  allowed: true,
   selection: "file",
   uploading: false
 };
