@@ -1,0 +1,12 @@
+.uploadWarning {
+  color: red;
+  margin-left: auto;
+}
+fieldset {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+}
+label {
+  padding-right: 10px;
+}

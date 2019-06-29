@@ -1,0 +1,16 @@
+li {
+  margin: 0 16px;
+  display: flex;
+}
+li p {
+  flex-grow: 1;
+  display: list-item;
+}
+li button {
+  align-self: center;
+  width: 25px;
+  flex-shrink: 0;
+}
+hr {
+  margin: 8px 0;
+}

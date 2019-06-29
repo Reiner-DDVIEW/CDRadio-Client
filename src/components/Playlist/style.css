@@ -1,0 +1,6 @@
+#Playlist {
+  text-align: left;
+  overflow-y: auto;
+  flex-grow: 1;
+  flex-basis: 3em;
+}

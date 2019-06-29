@@ -1,0 +1,13 @@
+form {
+  width: 100%;
+}
+form input {
+  width: 78%;
+}
+form button {
+  width: 20%;
+  margin-left: 2%;
+}
+progress {
+  width: 100%;
+}
