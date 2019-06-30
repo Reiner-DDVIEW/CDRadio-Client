@@ -1,22 +1,7 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useCallback } from "react";
 import Uploadform from "../Uploadform/";
 import axios from "axios";
 import "./style.css";
-
-export const checkUploadRights = async function({ allowed }, dispatch) {
-  try {
-    const res = await axios("/allowed");
-    if (res.status !== 200) return;
-    if (allowed !== res.data.upload_allowed)
-      dispatch({ type: "ALLOWED", payload: res.data.upload_allowed });
-  } catch (err) {
-    //Do nothing
-  }
-};
-
-function onSelectionChange({ value }, dispatch) {
-  dispatch({ type: "SELECTION", payload: value });
-}
 
 const initialState = {
   allowed: true,
@@ -47,23 +32,39 @@ function uploaderReducer(state, action) {
 export default function Uploader() {
   const [state, dispatch] = useReducer(uploaderReducer, initialState);
 
+  const checkUploadRights = useCallback(async () => {
+    try {
+      const res = await axios("/allowed");
+      if (res.status !== 200) return;
+      if (state.allowed !== res.data.upload_allowed)
+        dispatch({ type: "ALLOWED", payload: res.data.upload_allowed });
+    } catch (err) {
+      //Do nothing
+    }
+  }, [state.allowed]);
+
   useEffect(() => {
     let interval;
     if (!state.allowed) {
-      interval = setInterval(() => checkUploadRights(state, dispatch), 10000);
+      interval = setInterval(() => checkUploadRights(), 10000);
     }
     return () => {
       clearInterval(interval);
     };
-  }, [state, dispatch]);
+  }, [checkUploadRights, state.allowed]);
+
   useEffect(() => {
-    checkUploadRights(state, dispatch);
+    checkUploadRights();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  function onSelectionChange({ value }) {
+    dispatch({ type: "SELECTION", payload: value });
+  }
+
   return (
     <div className="Uploader">
-      <fieldset onChange={({ target }) => onSelectionChange(target, dispatch)}>
+      <fieldset onChange={({ target }) => onSelectionChange(target)}>
         <label>
           <input
             type="radio"
@@ -91,7 +92,7 @@ export default function Uploader() {
       <Uploadform
         state={state}
         dispatch={dispatch}
-        checkRights={checkUploadRights}
+        checkUploadRights={checkUploadRights}
       />
     </div>
   );

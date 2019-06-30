@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../../Contexts/loginStatus";
 import "./style.css";
 
-export default function Song({ song, remove, skip, dispatch }) {
+export default function Song({ song, remove, skip }) {
   const loginStatus = useContext(Context);
   return (
     <div>
@@ -10,8 +10,8 @@ export default function Song({ song, remove, skip, dispatch }) {
         <p>{song}</p>
         {loginStatus && (
           <>
-            <button onClick={() => skip(dispatch, song)}>>></button>
-            <button onClick={() => remove(dispatch, song)}>X</button>
+            <button onClick={() => skip(song)}>>></button>
+            <button onClick={() => remove(song)}>X</button>
           </>
         )}
       </li>
