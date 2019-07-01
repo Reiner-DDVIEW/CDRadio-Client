@@ -22,6 +22,7 @@ export default function({ state, dispatch, checkUploadRights }) {
     } catch (err) {
       if (err.response) alert("Upload error: " + err.response.status);
     }
+    setpercentage(0);
     dispatch({ type: "ENDUPLOAD" });
   }
 
