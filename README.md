@@ -1,8 +1,9 @@
 This is currently setup so it can run alongside the existing client on a /v2/ path,
-for that you need to build this Project with `npm run build`.
+for that you need to build this Project with `npm run build` and delete the two extra html files besides index.html that the snapshot creates.
 
-Inside the template folder of the Flask app you create a folder v2 that you copy the contents of the build folder into, 
+Inside the template folder of the Flask app you create a folder v2 that you copy the contents of the build folder into,
 then you only need to add:
+
 ```python
 @app.route('/v2/')
 @app.route('/v2/index.html')
@@ -18,6 +19,7 @@ def v2():
 def static_proxy(path):
     return send_from_directory('./templates/v2/', path)
 ```
+
 to your routes.py file.
 
 It can currently do everything the original one could with the bonus of being responsive and has already the foundation laid to add authorization and the websocket part that is supposed to come in the future.
