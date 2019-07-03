@@ -6,7 +6,7 @@ export default function Song({ song, remove, skip }) {
   const { id, name } = song;
   const loginStatus = useContext(Context);
   return (
-    <div>
+    <div className="Song">
       <li>
         <p>{name}</p>
         {loginStatus.authkey && loginStatus.visible && (
