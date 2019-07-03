@@ -1,16 +1,17 @@
-li {
+.Song li {
   margin: 0 16px;
   display: flex;
 }
-li p {
+.Song li p {
   flex-grow: 1;
   display: list-item;
+  overflow-wrap: anywhere;
 }
-li button {
+.Song li button {
   align-self: center;
   width: 25px;
   flex-shrink: 0;
 }
-hr {
+.Song hr {
   margin: 8px 0;
 }
