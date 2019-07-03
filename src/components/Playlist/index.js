@@ -11,7 +11,7 @@ function playlistReducer(state, action) {
       return action.payload;
     }
     case "REMOVE": {
-      return state.filter(song => song !== action.payload);
+      return state.filter(song => song.id !== action.payload);
     }
     default: {
       return state;
@@ -87,7 +87,7 @@ export default function Playlist() {
     <div id="Playlist">
       {state.map(song => {
         return (
-          <Song key={song} song={song} skip={skipSong} remove={removeSong} />
+          <Song key={song.id} song={song} skip={skipSong} remove={removeSong} />
         );
       })}
     </div>
