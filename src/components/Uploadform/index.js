@@ -38,6 +38,11 @@ export default function({ state, dispatch, checkUploadRights }) {
     e.preventDefault();
     const url = "/upload";
     const data = new FormData();
+    if (e.target.file.files[0].type.indexOf("audio/") === -1) {
+      alert("unsupported filetype");
+      e.target.reset();
+      return false;
+    }
     data.append("file", e.target.file.files[0]);
     upload(url, data);
     e.target.reset();
@@ -48,7 +53,7 @@ export default function({ state, dispatch, checkUploadRights }) {
     case "file": {
       chosenForm = (
         <form onSubmit={e => onFileSubmit(e)}>
-          <input name="file" type="file" />
+          <input name="file" type="file" accept="audio/*" />
           <button type="submit" disabled={!allowed || uploading}>
             Submit
           </button>
