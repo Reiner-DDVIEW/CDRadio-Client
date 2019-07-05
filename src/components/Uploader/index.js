@@ -29,9 +29,8 @@ function uploaderReducer(state, action) {
   }
 }
 
-export default function Uploader() {
+export default React.memo(function Uploader() {
   const [state, dispatch] = useReducer(uploaderReducer, initialState);
-
   const checkUploadRights = useCallback(async () => {
     try {
       const res = await axios("/allowed");
@@ -96,4 +95,4 @@ export default function Uploader() {
       />
     </div>
   );
-}
+});
