@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useContext } from "react";
+import React, { useEffect, useReducer, useContext, useCallback } from "react";
 import axios from "axios";
 import Song from "../Song/";
 import { Context as loginContext } from "../../Contexts/loginStatus";
@@ -52,27 +52,33 @@ export default function Playlist() {
     }
   }
 
-  async function skipSong(id) {
-    //TODO:
-    // socket.emit("skip", { id, authkey: loginStatus.authkey }, (response) => {
-    //   if(response.status === 'done')
-    //   dispatch({ type: "REMOVE", payload: id });
-    //   alert("skipped Song: " + id);
-    // });
-    dispatch({ type: "REMOVE", payload: id });
-    alert("skipped Song: " + id);
-  }
+  const skipSong = useCallback(
+    async id => {
+      //TODO:
+      // socket.emit("skip", { id, authkey: loginStatus.authkey }, (response) => {
+      //   if(response.status === 'done')
+      //   dispatch({ type: "REMOVE", payload: id });
+      //   alert("skipped Song: " + id);
+      // });
+      dispatch({ type: "REMOVE", payload: id });
+      alert("skipped Song: " + id);
+    },
+    [dispatch]
+  );
 
-  async function removeSong(id) {
-    //TODO:
-    // socket.emit("remove", { id, authkey: loginStatus.authkey }, (response) => {
-    //   if(response.status === 'done')
-    //   dispatch({ type: "REMOVE", payload: id });
-    //   alert("deleted Song: " + id);
-    // });
-    dispatch({ type: "REMOVE", payload: id });
-    alert("deleted Song: " + id);
-  }
+  const removeSong = useCallback(
+    async id => {
+      //TODO:
+      // socket.emit("remove", { id, authkey: loginStatus.authkey }, (response) => {
+      //   if(response.status === 'done')
+      //   dispatch({ type: "REMOVE", payload: id });
+      //   alert("deleted Song: " + id);
+      // });
+      dispatch({ type: "REMOVE", payload: id });
+      alert("deleted Song: " + id);
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     loadPlaylist();
@@ -82,12 +88,18 @@ export default function Playlist() {
       clearInterval(interval);
     };
   }, []);
-
+  //TODO: remove index from the key after you get actual id's from the server.
   return (
     <div id="Playlist">
-      {state.map(song => {
+      {state.map((song, index) => {
         return (
-          <Song key={song.id} song={song} skip={skipSong} remove={removeSong} />
+          <Song
+            key={song.id + index}
+            name={song.name}
+            id={song.id}
+            skip={skipSong}
+            remove={removeSong}
+          />
         );
       })}
     </div>
