@@ -4,8 +4,15 @@
 }
 .Song li p {
   flex-grow: 1;
-  display: list-item;
-  overflow-wrap: anywhere;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.Song li span {
+  align-self: center;
+  margin: 0 5px;
 }
 .Song li button {
   align-self: center;
