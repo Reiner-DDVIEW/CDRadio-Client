@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import("./style.css");
+import"./style.css";
 
 export default function({ state, dispatch, checkUploadRights }) {
   const { allowed, selection, uploading } = state;
